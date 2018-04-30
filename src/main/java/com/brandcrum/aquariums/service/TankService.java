@@ -6,5 +6,11 @@ import java.util.Optional;
 
 public interface TankService {
 
-    Optional<Long> createTank(TankDTO tankDTO);
+    Optional<Long> create(TankDTO tankDTO);
+
+    Optional<TankDTO> findById(Long id);
+
+    void update(TankDTO tankDTO);
+
+    void delete(Long tankId);
 }

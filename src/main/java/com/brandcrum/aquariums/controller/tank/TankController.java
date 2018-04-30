@@ -1,14 +1,16 @@
 package com.brandcrum.aquariums.controller.tank;
 
 
-import com.brandcrum.aquariums.common.exception.TankNotCreatedException;
+import com.brandcrum.aquariums.common.dto.TankDTO;
+import com.brandcrum.aquariums.common.exception.NotFoundException;
 import com.brandcrum.aquariums.service.TankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/tank")
@@ -17,8 +19,24 @@ public class TankController {
     @Autowired
     private TankService tankService;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody CreateTankRequest createTankRequest) {
-        return tankService.createTank(createTankRequest.getTankDTO()).orElseThrow(() -> new TankNotCreatedException());
+    @PostMapping
+    public ResponseEntity create(@RequestBody CreateTankRequest createTankRequest) {
+        tankService.create(createTankRequest.getTankDTO());
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{tankId}")
+    public @ResponseBody TankDTO findById(@PathVariable Long tankId) throws NotFoundException {
+        return tankService.findById(tankId).orElseThrow(() -> new NotFoundException(String.format("Tank=%s not found", tankId)));
+    }
+
+    @DeleteMapping("/{tankId}")
+    public void remove(@PathVariable Long tankId) {
+        tankService.delete(tankId);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    void handleIllegalArgumentException(NotFoundException e, HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.NOT_FOUND.value());
     }
 }
