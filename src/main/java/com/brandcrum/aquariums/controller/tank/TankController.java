@@ -20,8 +20,8 @@ public class TankController {
     private TankService tankService;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreateTankRequest createTankRequest) {
-        tankService.create(createTankRequest.getTankDTO());
+    public ResponseEntity create(@RequestBody TankDTO tankDTO) {
+        tankService.create(tankDTO);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

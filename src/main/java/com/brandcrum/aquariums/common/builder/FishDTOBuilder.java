@@ -20,7 +20,7 @@ public class FishDTOBuilder {
         FishDTO fishDTO = new FishDTO();
         fishDTO.setId(fish.getId());
         fishDTO.setName(fish.getName());
-        fishDTO.setFishType(fish.getFishType());
+        fishDTO.setType(fish.getFishType());
         fishDTO.setPrice(fish.getPrice());
         return fishDTO;
     }

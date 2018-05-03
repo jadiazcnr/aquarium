@@ -10,9 +10,11 @@ public class FishDTO {
 
     private String name;
 
-    private FishType fishType;
+    private FishType type;
 
     private BigDecimal price;
+
+    private Long tank;
 
     public Long getId() {
         return id;
@@ -30,12 +32,12 @@ public class FishDTO {
         this.name = name;
     }
 
-    public FishType getFishType() {
-        return fishType;
+    public FishType getType() {
+        return type;
     }
 
-    public void setFishType(FishType fishType) {
-        this.fishType = fishType;
+    public void setType(FishType type) {
+        this.type = type;
     }
 
     public BigDecimal getPrice() {
@@ -44,5 +46,13 @@ public class FishDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Long getTank() {
+        return tank;
+    }
+
+    public void setTank(Long tank) {
+        this.tank = tank;
     }
 }

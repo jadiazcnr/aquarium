@@ -4,6 +4,8 @@ import com.brandcrum.aquariums.common.types.FishType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Fish {
@@ -15,11 +17,15 @@ public class Fish {
     @Column
     private String name;
 
+    @Column(name = "fish_type")
     @Enumerated(EnumType.STRING)
     private FishType fishType;
 
     @Column
     private BigDecimal price;
+
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
     @ManyToOne
     private Tank tank;
@@ -62,5 +68,13 @@ public class Fish {
 
     public void setTank(Tank tank) {
         this.tank = tank;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

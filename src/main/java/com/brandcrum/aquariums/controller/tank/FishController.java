@@ -20,7 +20,8 @@ public class FishController {
     private FishService fishService;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreateTankRequest createTankRequest) {
+    public ResponseEntity create(@RequestBody FishDTO fishDTO) {
+        fishService.create(fishDTO);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
